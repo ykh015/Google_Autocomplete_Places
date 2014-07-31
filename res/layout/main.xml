@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -38,5 +38,5 @@
             android:src="@drawable/ic_loc_directions" 
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
-
+    
 </RelativeLayout>

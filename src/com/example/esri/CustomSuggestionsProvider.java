@@ -43,7 +43,7 @@ public class CustomSuggestionsProvider extends ContentProvider {
 	private static final String[] SEARCH_SUGGEST_COLUMNS = { BaseColumns._ID,
 			SearchManager.SUGGEST_COLUMN_TEXT_1,
 			SearchManager.SUGGEST_COLUMN_TEXT_2,
-			SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID };
+			SearchManager.SUGGEST_COLUMN_INTENT_DATA };
 
 	static {
 		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -63,21 +63,20 @@ public class CustomSuggestionsProvider extends ContentProvider {
 			String[] selectionArgs, String sortOrder) {
 		// TODO Auto-generated method stub
 		String query = uri.getLastPathSegment().toLowerCase();
-		System.out.println("In query " + query);
 
-		Log.d(LOG_TAG, "query = " + uri);
+//		Log.d(LOG_TAG, "query = " + uri);
 
 		// Use the UriMatcher to see what kind of query we have
 		switch (uriMatcher.match(uri)) {
 		case SEARCH_SUGGEST:
-			Log.d(LOG_TAG, "Search suggestions requested.");
+//			Log.d(LOG_TAG, "Search suggestions requested.");
 			ArrayList<String> res = autocomplete(query);
 			MatrixCursor cursor = new MatrixCursor(SEARCH_SUGGEST_COLUMNS, 1);
 
 			for (int i = 0; i < res.size(); i++) {
 				String id = Integer.toString((i + 1));
 				cursor.addRow(new String[] { id, res.get(i),
-						"", "content_id" });
+						"", res.get(i) });
 			}
 			return cursor;
 		default:
@@ -161,8 +160,8 @@ public class CustomSuggestionsProvider extends ContentProvider {
 			for (int i = 0; i < predsJsonArray.length(); i++) {
 				resultList.add(predsJsonArray.getJSONObject(i).getString(
 						"description"));
-				System.out.println(predsJsonArray.getJSONObject(i).getString(
-						"description"));
+//				System.out.println(predsJsonArray.getJSONObject(i).getString(
+//						"description"));
 
 			}
 		} catch (JSONException e) {
