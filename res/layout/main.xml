@@ -38,27 +38,5 @@
             android:src="@drawable/ic_loc_directions" 
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/hidden_panel"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:visibility="gone" >
-
-        <SearchView
-            android:id="@+id/searchView2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_bright" />
-
-        <SearchView
-            android:id="@+id/searchView3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_bright"
-            android:layout_marginTop="10dp"
-             />
-    </LinearLayout>
     
 </RelativeLayout>

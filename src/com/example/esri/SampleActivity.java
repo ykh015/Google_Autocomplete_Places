@@ -3,6 +3,7 @@ package com.example.esri;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -25,7 +26,6 @@ public class SampleActivity extends Activity {
 	MapView mMapView;
 	SearchView searchView,sv_source,sv_dest;
 	ImageView iv_directions;
-	ViewGroup hiddenPanel;
 	SearchManager searchManager;
 	
 	
@@ -40,20 +40,12 @@ public class SampleActivity extends Activity {
         
 		mMapView = (MapView)findViewById(R.id.map);
 		searchView = (SearchView)findViewById(R.id.searchView1);
-		sv_source= (SearchView)findViewById(R.id.searchView2);
-		sv_dest= (SearchView)findViewById(R.id.searchView3);
 
 		iv_directions = (ImageView)findViewById(R.id.imageView1);
-		hiddenPanel=(ViewGroup)findViewById(R.id.hidden_panel);
 		
 		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 		searchView.setIconifiedByDefault(false); 
 		
-		sv_source.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-		sv_source.setIconifiedByDefault(false); 
-
-		sv_dest.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-		sv_dest.setIconifiedByDefault(false); 
 
 		
 		int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
@@ -65,47 +57,39 @@ public class SampleActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				slideUp();
-				InputMethodManager imm = (InputMethodManager)getSystemService(
-					      Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(textView.getApplicationWindowToken(), 0);
-
+//				slideUp();
+//				InputMethodManager imm = (InputMethodManager)getSystemService(
+//					      Context.INPUT_METHOD_SERVICE);
+//				imm.hideSoftInputFromWindow(textView.getApplicationWindowToken(), 0);
+				Intent i = new Intent(SampleActivity.this, GetDirections.class);
+				startActivity(i);
 			}
 
 		});
 		
 		
-		hiddenPanel.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				switch(event.getAction()){
-				case MotionEvent.ACTION_DOWN:
-					System.out.println("Drag Down");
-					Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
-							R.anim.bottom_down);
-					hiddenPanel.setAnimation(bottomDown);
-					hiddenPanel.setVisibility(View.GONE);
-
-				}
-
-				return false;
-			}
-		});
-
+//		hiddenPanel.setOnTouchListener(new OnTouchListener() {
+//			
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				// TODO Auto-generated method stub
+//				switch(event.getAction()){
+//				case MotionEvent.ACTION_DOWN:
+//					System.out.println("Drag Down");
+//					Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
+//							R.anim.bottom_down);
+//					hiddenPanel.setAnimation(bottomDown);
+//					hiddenPanel.setVisibility(View.GONE);
+//
+//				}
+//
+//				return false;
+//			}
+//		});
+//
     }
 
     
-	private void slideUp() {
-		// TODO Auto-generated method stub
-		Animation bottomUp = AnimationUtils.loadAnimation(getApplicationContext(),
-				R.anim.bottom_up);
-
-		hiddenPanel.setAnimation(bottomUp);
-		hiddenPanel.setVisibility(View.VISIBLE);
-
-	}
 
 	@Override
 	protected void onDestroy() {
@@ -122,19 +106,19 @@ public class SampleActivity extends Activity {
 		mMapView.unpause();
 	}
 	
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		System.out.println("Back button pressed");
-		if(hiddenPanel.getVisibility() == View.VISIBLE){
-			System.out.println("View is visible");
-			Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
-					R.anim.bottom_down);
-			hiddenPanel.setAnimation(bottomDown);
-			hiddenPanel.setVisibility(View.GONE);
-
-		}
-		
-	}
+//	@Override
+//	public void onBackPressed() {
+//		super.onBackPressed();
+//		System.out.println("Back button pressed");
+//		if(hiddenPanel.getVisibility() == View.VISIBLE){
+//			System.out.println("View is visible");
+//			Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
+//					R.anim.bottom_down);
+//			hiddenPanel.setAnimation(bottomDown);
+//			hiddenPanel.setVisibility(View.GONE);
+//
+//		}
+//		
+//	}
 
 }
