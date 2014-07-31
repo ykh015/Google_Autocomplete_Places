@@ -5,10 +5,10 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -75,13 +75,13 @@ public class SampleActivity extends Activity {
 		});
 		
 		
-		hiddenPanel.setOnDragListener(new OnDragListener() {
+		hiddenPanel.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
-			public boolean onDrag(View v, DragEvent event) {
+			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				switch(event.getAction()){
-				case DragEvent.ACTION_DRAG_ENDED:
+				case MotionEvent.ACTION_DOWN:
 					System.out.println("Drag Down");
 					Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
 							R.anim.bottom_down);
@@ -89,6 +89,7 @@ public class SampleActivity extends Activity {
 					hiddenPanel.setVisibility(View.GONE);
 
 				}
+
 				return false;
 			}
 		});
@@ -119,6 +120,21 @@ public class SampleActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		mMapView.unpause();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		System.out.println("Back button pressed");
+		if(hiddenPanel.getVisibility() == View.VISIBLE){
+			System.out.println("View is visible");
+			Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
+					R.anim.bottom_down);
+			hiddenPanel.setAnimation(bottomDown);
+			hiddenPanel.setVisibility(View.GONE);
+
+		}
+		
 	}
 
 }
