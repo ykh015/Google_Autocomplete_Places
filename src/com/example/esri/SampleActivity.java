@@ -6,14 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -43,8 +37,6 @@ public class SampleActivity extends Activity {
 
 		iv_directions = (ImageView)findViewById(R.id.imageView1);
 		
-		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-		searchView.setIconifiedByDefault(false); 
 		
 
 		
@@ -53,14 +45,21 @@ public class SampleActivity extends Activity {
 		textView.setTextColor(Color.WHITE);
 
     
+		searchView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(SampleActivity.this, SearchLocation.class);
+				startActivity(i);
+
+			}
+		});
+		
 		iv_directions.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-//				slideUp();
-//				InputMethodManager imm = (InputMethodManager)getSystemService(
-//					      Context.INPUT_METHOD_SERVICE);
-//				imm.hideSoftInputFromWindow(textView.getApplicationWindowToken(), 0);
 				Intent i = new Intent(SampleActivity.this, GetDirections.class);
 				startActivity(i);
 			}
@@ -106,19 +105,5 @@ public class SampleActivity extends Activity {
 		mMapView.unpause();
 	}
 	
-//	@Override
-//	public void onBackPressed() {
-//		super.onBackPressed();
-//		System.out.println("Back button pressed");
-//		if(hiddenPanel.getVisibility() == View.VISIBLE){
-//			System.out.println("View is visible");
-//			Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
-//					R.anim.bottom_down);
-//			hiddenPanel.setAnimation(bottomDown);
-//			hiddenPanel.setVisibility(View.GONE);
-//
-//		}
-//		
-//	}
 
 }

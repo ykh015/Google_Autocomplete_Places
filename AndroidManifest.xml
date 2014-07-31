@@ -47,7 +47,10 @@
                 <activity
             android:name=".GetDirections"
             android:label="@string/app_name" />
-            
+                            <activity
+            android:name=".SearchLocation"
+            android:label="@string/app_name" />
+                
     </application>
 
 </manifest>

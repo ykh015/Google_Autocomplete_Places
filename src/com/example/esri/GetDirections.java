@@ -3,9 +3,11 @@ package com.example.esri;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.SearchView;
@@ -27,13 +29,29 @@ public class GetDirections extends Activity {
 		sv_source = (SearchView) findViewById(R.id.searchView1);
 		sv_dest = (SearchView) findViewById(R.id.searchView2);
 
-		sv_source.setSearchableInfo(searchManager
-				.getSearchableInfo(getComponentName()));
-		sv_source.setIconifiedByDefault(false);
 
-		sv_dest.setSearchableInfo(searchManager
-				.getSearchableInfo(getComponentName()));
-		sv_dest.setIconifiedByDefault(false);
+
+		
+		sv_source.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(GetDirections.this, SearchLocation.class);
+				startActivity(i);
+
+			}
+		});
+		sv_dest.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(GetDirections.this, SearchLocation.class);
+				startActivity(i);
+
+			}
+		});
 
 		slideUp();
 
