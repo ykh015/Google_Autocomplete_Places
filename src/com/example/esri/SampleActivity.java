@@ -5,8 +5,10 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnDragListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,26 +23,38 @@ import com.esri.android.map.MapView;
 public class SampleActivity extends Activity {
 	
 	MapView mMapView;
-	SearchView searchView;
+	SearchView searchView,sv_source,sv_dest;
 	ImageView iv_directions;
 	ViewGroup hiddenPanel;
+	SearchManager searchManager;
+	
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+         searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
         
 		mMapView = (MapView)findViewById(R.id.map);
 		searchView = (SearchView)findViewById(R.id.searchView1);
+		sv_source= (SearchView)findViewById(R.id.searchView2);
+		sv_dest= (SearchView)findViewById(R.id.searchView3);
+
 		iv_directions = (ImageView)findViewById(R.id.imageView1);
 		hiddenPanel=(ViewGroup)findViewById(R.id.hidden_panel);
 		
 		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 		searchView.setIconifiedByDefault(false); 
 		
+		sv_source.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		sv_source.setIconifiedByDefault(false); 
+
+		sv_dest.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		sv_dest.setIconifiedByDefault(false); 
+
 		
 		int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
 		final TextView textView = (TextView) searchView.findViewById(id);
@@ -59,6 +73,26 @@ public class SampleActivity extends Activity {
 			}
 
 		});
+		
+		
+		hiddenPanel.setOnDragListener(new OnDragListener() {
+			
+			@Override
+			public boolean onDrag(View v, DragEvent event) {
+				// TODO Auto-generated method stub
+				switch(event.getAction()){
+				case DragEvent.ACTION_DRAG_ENDED:
+					System.out.println("Drag Down");
+					Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
+							R.anim.bottom_down);
+					hiddenPanel.setAnimation(bottomDown);
+					hiddenPanel.setVisibility(View.GONE);
+
+				}
+				return false;
+			}
+		});
+
     }
 
     
