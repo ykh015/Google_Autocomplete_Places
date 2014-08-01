@@ -67,7 +67,6 @@ public class SearchLocation extends Activity {
 			public boolean onQueryTextSubmit(String query) {
 
 				System.out.println("Go clicked");
-
 				Intent returnIntent = new Intent();
 				returnIntent.putExtra("result", query);
 				setResult(RESULT_OK, returnIntent);
@@ -89,7 +88,7 @@ public class SearchLocation extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				String data=(String)parent.getItemAtPosition(position);
+				String data = (String) parent.getItemAtPosition(position);
 				Intent returnIntent = new Intent();
 				returnIntent.putExtra("result", data);
 				setResult(RESULT_OK, returnIntent);
@@ -99,7 +98,6 @@ public class SearchLocation extends Activity {
 		});
 	}
 
-	
 	public ArrayList<String> autocomplete(String input) {
 		ArrayList<String> resultList = null;
 

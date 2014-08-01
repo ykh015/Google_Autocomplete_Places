@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 public class GetDirections extends Activity {
 	SearchView sv_source, sv_dest;
@@ -38,7 +39,9 @@ public class GetDirections extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(GetDirections.this, SearchLocation.class);
-				startActivity(i);
+				//2 is for source
+				i.putExtra("From", "source");
+				startActivityForResult(i, 2);
 
 			}
 		});
@@ -48,7 +51,10 @@ public class GetDirections extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(GetDirections.this, SearchLocation.class);
-				startActivity(i);
+				//3 is for destination
+				i.putExtra("From", "destination");
+
+				startActivityForResult(i, 3);
 
 			}
 		});
@@ -56,6 +62,39 @@ public class GetDirections extends Activity {
 		slideUp();
 
 	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    	System.out.println("In Activity Result");
+        if (requestCode == 2) {
+        	System.out.println("Request code is 1");
+            if(resultCode == RESULT_OK){
+            	System.out.println(RESULT_OK);
+
+                String result=data.getStringExtra("result");
+                System.out.println(result);
+                Toast.makeText(this, "Source "+result, Toast.LENGTH_LONG).show();
+                
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+        else if(requestCode == 3){
+            if(resultCode == RESULT_OK){
+            	System.out.println(RESULT_OK);
+
+                String result=data.getStringExtra("result");
+                System.out.println(result);
+                Toast.makeText(this, "Destination "+result, Toast.LENGTH_LONG).show();
+                
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+
+        }
+    }
 
 	private void slideUp() {
 		// TODO Auto-generated method stub
