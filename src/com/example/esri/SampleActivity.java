@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esri.android.map.MapView;
 
@@ -22,7 +23,7 @@ public class SampleActivity extends Activity {
 	SearchView searchView,sv_source,sv_dest;
 	ImageView iv_directions;
 	SearchManager searchManager;
-	
+	TextView textView;
 	
     /** Called when the activity is first created. */
     @Override
@@ -40,6 +41,7 @@ public class SampleActivity extends Activity {
         
 		mMapView = (MapView)findViewById(R.id.map);
 		searchView = (SearchView)findViewById(R.id.searchView1);
+        searchView.setIconifiedByDefault(false);
 
 		iv_directions = (ImageView)findViewById(R.id.imageView1);
 		
@@ -47,7 +49,7 @@ public class SampleActivity extends Activity {
 
 		
 		int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-		final TextView textView = (TextView) searchView.findViewById(id);
+		textView = (TextView) searchView.findViewById(id);
 		textView.setTextColor(Color.WHITE);
 
     
@@ -57,7 +59,7 @@ public class SampleActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(SampleActivity.this, SearchLocation.class);
-				startActivity(i);
+				startActivityForResult(i, 1);
 
 			}
 		});
@@ -72,29 +74,41 @@ public class SampleActivity extends Activity {
 
 		});
 		
+		textView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(SampleActivity.this, SearchLocation.class);
+				startActivityForResult(i, 1);
+
+			}
+		});
 		
-//		hiddenPanel.setOnTouchListener(new OnTouchListener() {
-//			
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				// TODO Auto-generated method stub
-//				switch(event.getAction()){
-//				case MotionEvent.ACTION_DOWN:
-//					System.out.println("Drag Down");
-//					Animation bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),
-//							R.anim.bottom_down);
-//					hiddenPanel.setAnimation(bottomDown);
-//					hiddenPanel.setVisibility(View.GONE);
-//
-//				}
-//
-//				return false;
-//			}
-//		});
-//
     }
 
-    
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    	System.out.println("In Activity Result");
+        if (requestCode == 1) {
+        	System.out.println("Request code is 1");
+            if(resultCode == RESULT_OK){
+            	System.out.println(RESULT_OK);
+
+                String result=data.getStringExtra("result");
+                System.out.println(result);
+                searchView.setIconifiedByDefault(false);
+                searchView.setQuery(result, false);
+                Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+                
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 
 	@Override
 	protected void onDestroy() {

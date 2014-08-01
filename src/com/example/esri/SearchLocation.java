@@ -15,10 +15,14 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -44,11 +48,10 @@ public class SearchLocation extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-	    getActionBar().hide();
+		getActionBar().hide();
 
 		setContentView(R.layout.searchlocation);
-		
-	    
+
 		searchview = (SearchView) findViewById(R.id.searchLocation);
 		lv = (ListView) findViewById(R.id.listView1);
 
@@ -62,8 +65,14 @@ public class SearchLocation extends Activity {
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
-				// TODO Auto-generated method stub
-				return false;
+
+				System.out.println("Go clicked");
+
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("result", query);
+				setResult(RESULT_OK, returnIntent);
+				finish();
+				return true;
 			}
 
 			@Override
@@ -73,8 +82,24 @@ public class SearchLocation extends Activity {
 				return true;
 			}
 		});
+
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				String data=(String)parent.getItemAtPosition(position);
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("result", data);
+				setResult(RESULT_OK, returnIntent);
+				finish();
+
+			}
+		});
 	}
 
+	
 	public ArrayList<String> autocomplete(String input) {
 		ArrayList<String> resultList = null;
 
@@ -133,19 +158,22 @@ public class SearchLocation extends Activity {
 		@Override
 		protected ArrayList<String> doInBackground(String... params) {
 			// TODO Auto-generated method stub
-			
+
 			result = autocomplete(params[0]);
 			return result;
 		}
-		
+
 		@Override
 		protected void onPostExecute(ArrayList<String> result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			adapter = new ArrayAdapter<String>(SearchLocation.this,
-					R.layout.list_row, result);
-			lv.setAdapter(adapter);
+			if (result.size() > 0) {
+				adapter = new ArrayAdapter<String>(SearchLocation.this,
+						R.layout.list_row, result);
+				lv.setAdapter(adapter);
+			}
 
 		}
 	}
+
 }
