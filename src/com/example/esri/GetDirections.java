@@ -40,7 +40,6 @@ public class GetDirections extends Activity {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(GetDirections.this, SearchLocation.class);
 				//2 is for source
-				i.putExtra("From", "source");
 				startActivityForResult(i, 2);
 
 			}
@@ -52,8 +51,6 @@ public class GetDirections extends Activity {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(GetDirections.this, SearchLocation.class);
 				//3 is for destination
-				i.putExtra("From", "destination");
-
 				startActivityForResult(i, 3);
 
 			}
