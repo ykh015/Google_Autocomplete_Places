@@ -13,17 +13,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
@@ -47,7 +43,12 @@ public class SearchLocation extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+	    getActionBar().hide();
+
 		setContentView(R.layout.searchlocation);
+		
+	    
 		searchview = (SearchView) findViewById(R.id.searchLocation);
 		lv = (ListView) findViewById(R.id.listView1);
 
@@ -142,7 +143,7 @@ public class SearchLocation extends Activity {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			adapter = new ArrayAdapter<String>(SearchLocation.this,
-					android.R.layout.simple_list_item_1, result);
+					R.layout.list_row, result);
 			lv.setAdapter(adapter);
 
 		}
