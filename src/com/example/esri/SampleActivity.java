@@ -25,6 +25,7 @@ public class SampleActivity extends Activity {
 	SearchManager searchManager;
 	TextView textView;
 	
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,18 +37,14 @@ public class SampleActivity extends Activity {
 
         setContentView(R.layout.main);
 
-         searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
-        
 		mMapView = (MapView)findViewById(R.id.map);
 		searchView = (SearchView)findViewById(R.id.searchView1);
         searchView.setIconifiedByDefault(false);
 
 		iv_directions = (ImageView)findViewById(R.id.imageView1);
-		
-		
-
-		
+				
 		int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
 		textView = (TextView) searchView.findViewById(id);
 		textView.setTextColor(Color.WHITE);

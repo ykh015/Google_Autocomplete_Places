@@ -45,14 +45,15 @@ public class SearchLocation extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 		getActionBar().hide();
-
+		
+		
 		setContentView(R.layout.searchlocation);
-
+		
 		searchview = (SearchView) findViewById(R.id.searchLocation);
+
 		lv = (ListView) findViewById(R.id.listView1);
 
 		searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -66,7 +67,6 @@ public class SearchLocation extends Activity {
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 
-				System.out.println("Go clicked");
 				Intent returnIntent = new Intent();
 				returnIntent.putExtra("result", query);
 				setResult(RESULT_OK, returnIntent);
@@ -96,6 +96,8 @@ public class SearchLocation extends Activity {
 
 			}
 		});
+		
+	
 	}
 
 	public ArrayList<String> autocomplete(String input) {
@@ -173,5 +175,6 @@ public class SearchLocation extends Activity {
 
 		}
 	}
+
 
 }
