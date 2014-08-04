@@ -20,4 +20,11 @@
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_blue_bright" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Route"
+        android:layout_gravity="center" />
+
 </LinearLayout>

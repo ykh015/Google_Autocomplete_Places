@@ -5,7 +5,7 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class PlacesSuggestionProvider extends Activity {
+public class PlaceResult extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
