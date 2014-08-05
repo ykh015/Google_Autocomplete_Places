@@ -19,5 +19,4 @@
         android:background="@android:color/white"
         android:dividerHeight="2dp"
         android:divider="@android:color/darker_gray"/>
-        
 </LinearLayout>

@@ -4,5 +4,11 @@
     <string name="hello">Hello World, SampleActivity!</string>
     <string name="app_name">Sample</string>
     <string name="search_hint">Enter place name</string>
-
+    <string name="useCurrlocation">Use current Location</string>
+    <string name="routing_title">Routing</string>
+    <string name="swap_addresses">Swap addresses</string>
+    <string name="clearText">Click to clear text</string>
+    <string name="route">Route</string>
+    <string name="my_location">My Location</string>
+    
 </resources>
